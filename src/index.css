@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { font-family: 'Cairo', system-ui, -apple-system, sans-serif; }
+
+body {
+  margin: 0;
+  font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8fafc;
+}
+
+html.dark body { background-color: #0f172a; }
+
+@layer components {
+  .input {
+    @apply w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-800 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-200 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:focus:border-teal-400 dark:focus:ring-teal-800;
+  }
+  .field-label {
+    @apply mb-1.5 block text-xs font-bold text-slate-500 dark:text-slate-400;
+  }
+}
+
+@layer utilities {
+  .animate-ping-slow {
+    animation: ping-slow 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  @keyframes ping-slow {
+    0% { transform: scale(1); opacity: 0.6; }
+    75%, 100% { transform: scale(2); opacity: 0; }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+#print-medical-card,
+#print-prescription {
+  display: none;
+}
+
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #print-medical-card,
+  #print-medical-card * {
+    visibility: visible !important;
+  }
+  #print-medical-card {
+    display: flex !important;
+    flex-direction: column !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 2vmin !important;
+    background: white !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  #print-medical-card .medical-card-sheet {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    margin: 0 !important;
+    page-break-inside: avoid !important;
+    border-width: clamp(1px, 0.4vmin, 3px) !important;
+    border-radius: clamp(8px, 2vmin, 16px) !important;
+    overflow: hidden !important;
+  }
+  #print-medical-card .medical-card-sheet > * {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  #print-medical-card .medical-card-header {
+    padding: clamp(8px, 2.2vmin, 16px) clamp(10px, 3vmin, 20px) !important;
+  }
+  #print-medical-card .medical-card-body {
+    padding: clamp(10px, 2.8vmin, 18px) clamp(10px, 3vmin, 20px) !important;
+  }
+  #print-medical-card .medical-card-vitals {
+    grid-template-columns: 1fr 1fr !important;
+    gap: clamp(4px, 1.2vmin, 8px) !important;
+  }
+  #print-medical-card .medical-card-footer {
+    padding: clamp(5px, 1.5vmin, 10px) clamp(10px, 3vmin, 20px) !important;
+  }
+  #print-medical-card img,
+  #print-medical-card .profile-placeholder {
+    width: clamp(40px, 9vmin, 64px) !important;
+    height: clamp(40px, 9vmin, 64px) !important;
+  }
+  #print-medical-card .card-doctor-name { font-size: clamp(11px, 2.6vmin, 16px) !important; }
+  #print-medical-card .card-specialty { font-size: clamp(8px, 1.8vmin, 11px) !important; }
+  #print-medical-card .card-badge { font-size: clamp(7px, 1.6vmin, 10px) !important; padding: clamp(2px, 0.6vmin, 4px) clamp(5px, 1.4vmin, 9px) !important; }
+  #print-medical-card .card-patient-name { font-size: clamp(12px, 2.8vmin, 17px) !important; }
+  #print-medical-card .card-sub { font-size: clamp(8px, 1.9vmin, 12px) !important; }
+  #print-medical-card .vital-label { font-size: clamp(7px, 1.7vmin, 11px) !important; }
+  #print-medical-card .vital-value { font-size: clamp(8px, 1.9vmin, 12px) !important; }
+  #print-medical-card .card-allergy,
+  #print-medical-card .card-chronic { font-size: clamp(7px, 1.7vmin, 11px) !important; padding: clamp(4px, 1.1vmin, 7px) clamp(6px, 1.6vmin, 10px) !important; }
+  #print-medical-card .card-footer-text { font-size: clamp(7px, 1.6vmin, 10px) !important; }
+
+  #print-prescription,
+  #print-prescription * {
+    visibility: visible !important;
+  }
+  #print-prescription {
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  #bolt-badge,
+  .bolt-badge,
+  .bolt-watermark,
+  .bolt-preview-badge,
+  .bolt-overlay,
+  [id^="bolt-badge"],
+  [class*="bolt-badge"],
+  [class*="bolt-watermark"],
+  [class*="bolt-preview"],
+  [class*="bolt-overlay"],
+  iframe[src*="bolt"],
+  div[style*="position: fixed"][style*="z-index: 2147483647"],
+  div[style*="position:fixed"][style*="z-index:2147483647"],
+  div[style*="position: fixed"][style*="z-index: 99999"],
+  div[style*="position:fixed"][style*="z-index:99999"],
+  .fixed.bottom-0,
+  .fixed.right-0,
+  .fixed.left-0,
+  .fixed.top-0 {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+}
